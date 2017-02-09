@@ -18,11 +18,13 @@ export default class MyCell extends Component {
   };
 
   _onPressChange = () => {
-    this.props.changeTodo(this.props.id);
+    const id =  this.props.id
+    this.props.changeTodo(id);
   };
 
   _onPressRemove = () => {
-    this.props.removeTodo(this.props.id);
+    const id =  this.props.id
+    this.props.removeTodo(id);
   };
 
   render() {
@@ -42,20 +44,27 @@ const styles = StyleSheet.create({
   cell: {
     flex: 1,
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-    backgroundColor: '#F5FCFF',
-    paddingLeft: 0,
-    paddingRight: 0,
-  },
-  imageView: {
-    width: 160,
-    height: 150,
-    backgroundColor: '#333333',
-    borderRadius: 3,
+    flexWrap: 'nowrap',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#F5FCFF',
+  },
+  leftButton: {
+    borderRadius: 3,
     margin: 10,
+  },
+  rightButton: {
+    borderRadius: 3,
+    margin: 10,
+  },
+  text: {
+    width: 160,
+    height: 30,
+    backgroundColor: '#fff',
+    borderRadius: 3,
+    margin: 10,
+    textAlign: 'auto',
+    fontSize: 15,
+    alignSelf: 'center',
   },
 });

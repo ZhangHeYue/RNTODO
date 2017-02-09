@@ -12,35 +12,35 @@ export default class MyView extends Component {
     this.state = { items: [] };
   }
 
-  removeTodo = (id) => {
+  _removeTodo = (id) => {
     const items = this.state.items.filter(todo => todo.id !== id);
-    this.setState(items);
+    this.setState({items});
   };
 
-  changeTodo = (id) => {
+  _changeTodo = (id) => {
     const items = this.state.items.map((todo) => {
-      return todo.id === id ? { ...todo, finished: !todo.finished } : todo;
+      return todo.id === id ? { ...todo, isFinish: !todo.isFinish } : todo;
     });
-    this.setState(items);
+    this.setState({items});
   };
 
-  createTodo = (todo) => {
+  _createTodo = (title) => {
     const id = Date.now() + Math.random().toString().substr(2, 3);
-    const newItem = { todo, id, createdAt: new Date().toString(), isFinish: false };
-    const items = this.state.items.concat(newItem);
-    this.setState(items);
+    const newItem = { title, id, createdAt: new Date().toString(), isFinish: false };
+    const items = [...this.state.items, newItem];
+    this.setState({items});
   };
 
   render() {
     return (
       <View style={styles.view}>
-        <MyList dataSource={this.state.items.map((todo) => !todo.isFinish)}
-          changeTodo={this.changeTodo}
-          removeTodo={this.removeTodo} />
-        <MyList dataSource={this.state.items.map((todo) => todo.isFinish)}
-          changeTodo={this.changeTodo}
-          removeTodo={this.removeTodo} />
-        <AddInput createTodo={this.createTodo} style={styles.input} />
+        <MyList items={this.state.items.filter((todo) => !todo.isFinish)}
+          changeTodo={this._changeTodo}
+          removeTodo={this._removeTodo} />
+        <MyList items={this.state.items.filter((todo) => todo.isFinish)}
+          changeTodo={this._changeTodo}
+          removeTodo={this._removeTodo} />
+        <AddInput createTodo={this._createTodo} style={styles.input} />
       </View>
     );
   }
@@ -49,25 +49,20 @@ export default class MyView extends Component {
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    flexWrap: 'nowrap',
     flexDirection: 'column',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   list: {
-    width: 260,
-    height: 30,
+    // width: 260,
+    height: 100,
     backgroundColor: '#eeeeee',
     borderRadius: 3,
     margin: 10,
-    paddingLeft: 0,
-    paddingRight: 0,
   },
   input: {
-    height: 30,
-    paddingLeft: 0,
-    paddingRight: 0,
-    paddingBottom: 0,
-    backgroundColor: '#000'
+    position: 'absolute',
+    backgroundColor: '#222',
+    bottom: 0,
   }
 });

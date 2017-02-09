@@ -16,17 +16,17 @@ export default class AddInput extends Component {
   }
 
   _onPressCreate = () => {
-    this.props.createTodo('aa')
+    this.props.createTodo(this.state.inputText);
   }
 
   render() {
     return (
       <View style = {styles.view}>
-       <TextInput style = {styles.textInput}
-        onChangeText={this._changeText}
-        value={this.state.text}
-      />
-      <Button style = {styles.button} onPress={this._onPressCreate} title="添加" />
+        <TextInput style = {styles.textInput}
+          onChangeText={this._changeText}
+
+        />
+        <Button style = {styles.button} onPress={this._onPressCreate} title="添加" />
       </View>
     );
   }
@@ -34,19 +34,20 @@ export default class AddInput extends Component {
 
 const styles = StyleSheet.create({
   view: {
-    flex: 1,
-    flexWrap: 'nowrap',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#111',
   },
   textInput: {
-    width: 260,
+    flex: 1,
     height: 30,
-    backgroundColor: '#eeeeee',
+    backgroundColor: '#333333',
     borderRadius: 3,
     margin: 10,
   },
   button: {
+    margin: 10,
     height: 30,
   }
 });

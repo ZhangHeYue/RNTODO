@@ -4,19 +4,19 @@ import MyCell from './MyCell';
 
 export default class MyList extends Component {
 
-  // 初始化模拟数据
-  constructor(props) {
-    super(props);
-    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-    this.state = {
-      dataSource: ds.cloneWithRows([
-        'John', 'Joel', 'James', 'Jimmy', 'Jackson', 'Jillian', 'Julie', 'Devin'
-      ])
-    };
+  state = {
+    dataSource: (new ListView.DataSource({ rowHasChanged: (r1, r2) => { return r1 !== r2; } })).cloneWithRows(
+      this.props.items
+    )
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const dataSource = this.state.dataSource.cloneWithRows(nextProps.items);
+    this.setState({ dataSource });
   }
 
   static propTypes = {
-    dataSource: PropTypes.array,
+    items: PropTypes.array,
     changeTodo: PropTypes.func,
     removeTodo: PropTypes.func,
   };
